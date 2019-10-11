@@ -10,6 +10,7 @@ import android.os.Bundle;
 public class MainActivity extends AppCompatActivity {
 
     // 메인 액티비티 git 변경 테스트
+    // 주석 변경 테스트
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
