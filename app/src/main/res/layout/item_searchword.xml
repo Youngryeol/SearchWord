@@ -36,7 +36,7 @@
                     android:paddingLeft="6dp"
                     android:paddingRight="6dp"
                     android:textSize="20sp"
-                    android:layout_alignParentBottom="false"
+                    android:layout_alignParentBottom="true"
                     android:gravity="center"
                     android:background="#70000000"
                     android:textColor="#ffffff"
