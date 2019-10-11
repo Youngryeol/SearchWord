@@ -93,7 +93,8 @@ public class SearchWordActivity extends AppCompatActivity {
         @Override
         protected void onPreExecute(){
             target = "https://datalab.naver.com/keyword/realtimeList.naver?where=main";
-            target_NewsSearch = "https://search.naver.com/search.naver?where=news&sm=tab_jum&query=";
+            //target_NewsSearch = "https://search.naver.com/search.naver?where=news&sm=tab_jum&query=";
+            target_NewsSearch = "https://search.naver.com/search.naver?where=image&sm=tab_jum&query=";
         }
 
         @Override
@@ -128,23 +129,25 @@ public class SearchWordActivity extends AppCompatActivity {
                     //newsData.setDescription(obj.getString("description"));
 
                     Document doc_NewsSearch = Jsoup.connect(target_NewsSearch + title).get();
-                    if (doc_NewsSearch != null)
-                    {
-                        Element ele_NewsSearch_Title = doc_NewsSearch.selectFirst("a[class=_sp_each_title]");
-                        if (ele_NewsSearch_Title != null)
-                        {
-                            newsData.setDescription(ele_NewsSearch_Title.text());
-                        }
 
-                        Element ele_NewsSearch_Image_a = doc_NewsSearch.selectFirst("a[class=sp_thmb thmb80]");
-                        if (ele_NewsSearch_Image_a != null)
-                        {
-                            newsData.setHttpUrl(ele_NewsSearch_Image_a.attr("href"));
 
-                            Element ele_NewsSearch_Image = ele_NewsSearch_Image_a.selectFirst("img");
-                            if (ele_NewsSearch_Image != null)
-                            {
-                                newsData.setUrlToImage(ele_NewsSearch_Image.attr("src"));
+                    if (doc_NewsSearch != null) {
+                        //Element ele_NewsSearch_Title = doc_NewsSearch.selectFirst("a[class=_sp_each_title]");
+                        Element _ell = doc_NewsSearch.selectFirst("div[class=img_area _item]");
+                        if (_ell != null) {
+                            Element _ell_a = _ell.selectFirst("a[class=thumb _thumb]");
+                            if (_ell_a != null) {
+                                newsData.setDescription(_ell_a.attr("title"));
+
+                                Element _ell_img = _ell_a.selectFirst("img[class=_img]");
+                                if (_ell_img !=null) {
+                                    newsData.setUrlToImage(_ell_img.attr("data-source"));
+                                }
+                            }
+
+                            Element _ell_link = _ell.selectFirst("a[class=org_view spimg]");
+                            if (_ell_link != null) {
+                                newsData.setHttpUrl(_ell_link.attr("href"));
                             }
                         }
                     }
