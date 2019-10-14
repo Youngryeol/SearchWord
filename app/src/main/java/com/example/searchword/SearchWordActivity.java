@@ -74,6 +74,7 @@ public class SearchWordActivity extends AppCompatActivity {
             }
         });
 
+        // 광고
         MobileAds.initialize(this, new OnInitializationCompleteListener() {
             @Override
             public void onInitializationComplete(InitializationStatus initializationStatus) {
