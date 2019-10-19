@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -184,9 +185,15 @@ public class SearchWordActivity extends AppCompatActivity {
                         Object obj = view.getTag();
                         int position = (int) obj;
 
-                        Intent intent = new Intent(SearchWordActivity.this, WebsiteActivity.class);
-                        intent.putExtra("news", ((MyAdapter)adapter).getNews(position));
-                        startActivity(intent);
+                        NewsData news = ((MyAdapter)adapter).getNews(position);
+                        if (news.getHttpUrl() != "") {
+                            Intent intent = new Intent(SearchWordActivity.this, WebsiteActivity.class);
+                            intent.putExtra("news", news);
+                            startActivity(intent);
+                        }
+                        else{
+                            Toast.makeText(getApplicationContext(), "해당 결과 페이지가 업습니다.", Toast.LENGTH_LONG).show();
+                        }
                     }
                 }
             });
